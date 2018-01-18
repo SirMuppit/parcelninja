@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fontera Parcelninja
+ *
+ * NOTICE OF LICENSE
+ *
+ * Private Proprietary Software (http://fontera.co.za/legal)
+ *
+ * @copyright  Copyright (c) 2016 Fontera (http://www.fontera.com)
+ * @license    http://fontera.co.za/legal  Private Proprietary Software
+ * @author     Shaughn Le Grange - Hatlen <support@fontera.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <update id="Magento_Backend::fontera"
+                title="Fontera"
+                module="Magento_Backend"
+                sortOrder="100"
+                resource="Magento_Backend::fontera"/>
+        <add id="Fontera_Parcelninja::parcelninja"
+             title="Parcelninja"
+             module="Fontera_Parcelninja"
+             sortOrder="10"
+             parent="Magento_Backend::fontera"
+             resource="Fontera_Parcelninja::parcelninja"/>
+        <add id="Fontera_Parcelninja::parcelninja_config"
+             title="API Configuration"
+             module="Fontera_Parcelninja"
+             sortOrder="10"
+             parent="Fontera_Parcelninja::parcelninja"
+             action="adminhtml/system_config/edit/section/fontera_parcelninja/"
+             resource="Fontera_Parcelninja::parcelninja_config"/>
+        <add id="Fontera_Parcelninja::parcelninja_shipping_method_config"
+             title="Shipping Method Configuration"
+             module="Fontera_Parcelninja"
+             sortOrder="15"
+             parent="Fontera_Parcelninja::parcelninja"
+             action="adminhtml/system_config/edit/section/carriers/"
+             resource="Fontera_Parcelninja::parcelninja_shipping_method_config"/>
+        <add id="Fontera_Parcelninja::parcelninja_service_log"
+             title="Request Log"
+             module="Fontera_Parcelninja"
+             sortOrder="20"
+             parent="Fontera_Parcelninja::parcelninja"
+             action="parcelninja/service_log"
+             resource="Fontera_Parcelninja::parcelninja_service_log"/>
+    </menu>
+</config>

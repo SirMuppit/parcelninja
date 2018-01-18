@@ -1,0 +1,30 @@
+<?php
+/**
+ * Fontera Parcelninja
+ *
+ * NOTICE OF LICENSE
+ *
+ * Private Proprietary Software (http://fontera.co.za/legal)
+ *
+ * @copyright  Copyright (c) 2016 Fontera (http://www.fontera.com)
+ * @license    http://fontera.co.za/legal  Private Proprietary Software
+ * @author     Shaughn Le Grange - Hatlen <support@fontera.com>
+ */
+?>
+<?php
+// @codingStandardsIgnoreFile
+/**
+ * @see \Fontera\Parcelninja\Block\Adminhtml\System\Config\HeadNotice
+ * @var \Fontera\Parcelninja\Block\Adminhtml\System\Config\HeadNotice $block
+ */
+$helpUrl = $block->escapeUrl($block->getData('help_url'));
+?>
+<?php if ($helpUrl): ?>
+    <div class="fontera-parcelninja-head">
+        <div class="logo"></div>
+        <div class="notice">
+            <?php echo $block->escapeHtml(__('Created by: ')); ?>
+            <a href="<?php echo $helpUrl; ?>" target="_blank"><?php echo $block->escapeHtml(__('Fontera')); ?></a>
+        </div>
+    </div>
+<?php endif; ?>

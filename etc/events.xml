@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fontera Parcelninja
+ *
+ * NOTICE OF LICENSE
+ *
+ * Private Proprietary Software (http://fontera.co.za/legal)
+ *
+ * @copyright  Copyright (c) 2016 Fontera (http://www.fontera.com)
+ * @license    http://fontera.co.za/legal  Private Proprietary Software
+ * @author     Shaughn Le Grange - Hatlen <support@fontera.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="fontera_parcelninja_service">
+        <observer name="parcelninja_service" instance="Fontera\Parcelninja\Observer\ProcessServiceRequestObserver" shared="false" />
+    </event>
+    <event name="sales_order_invoice_save_commit_after">
+        <observer name="parcelninja_create_shipment" instance="Fontera\Parcelninja\Observer\CreateShipmentObserver" shared="false" />
+    </event>
+</config>

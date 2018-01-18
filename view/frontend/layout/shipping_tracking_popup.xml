@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fontera Parcelninja
+ *
+ * NOTICE OF LICENSE
+ *
+ * Private Proprietary Software (http://fontera.co.za/legal)
+ *
+ * @copyright  Copyright (c) 2016 Fontera (http://www.fontera.com)
+ * @license    http://fontera.co.za/legal  Private Proprietary Software
+ * @author     Shaughn Le Grange - Hatlen <support@fontera.com>
+ */
+-->
+<!-- Fix for https://github.com/magento/magento2/pull/7229 -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="empty" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="shipping.tracking.popup">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Fontera_Parcelninja::tracking/popup.phtml</argument>
+                </action>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

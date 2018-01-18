@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Fontera Parcelninja
+ *
+ * NOTICE OF LICENSE
+ *
+ * Private Proprietary Software (http://fontera.co.za/legal)
+ *
+ * @copyright  Copyright (c) 2016 Fontera (http://www.fontera.com)
+ * @license    http://fontera.co.za/legal  Private Proprietary Software
+ * @author     Shaughn Le Grange - Hatlen <support@fontera.com>
+ */
+-->
+<!-- @todo Fix column component to show default on reset and bookmark to show default when selecting and not blank -->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <!-- Listing name: parcelninja_service_log_listing -->
+    <!-- Listing data source: parcelninja_service_log_listing_data_source -->
+
+    <!-- argument node defines data for the component -->
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing_data_source</item>
+            <item name="deps" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">parcelninja_service_log_columns</item>
+    </argument>
+    <!-- dataSource node responsible for preparing data for the grid -->
+    <!-- dataSource name should be same as argument/js_config/provider and argument/js_config/provider -->
+    <dataSource name="parcelninja_service_log_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <!-- class should be a unique name matched in di.xml -->
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">parcelninja_service_log_listing_data_source</argument>
+            <!-- primaryFieldName relates to the database primary column -->
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <!-- requestFieldName relates to the variable in http requests -->
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <!-- update_url refers to the entry point where ajax calls for filtering and sorting are send -->
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                </item>
+            </argument>
+        </argument>
+        <!-- Refers to javascript file that handles js part of sending and processing ajax calls for the grid -->
+        <!-- Default: Magento/Ui/view/base/web/js/grid/provider.js -->
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <container name="listing_top">
+        <!-- Defines template responsible for handling the layout and all actions -->
+        <!-- Default: Magento/Ui/view/base/web/templates/grid/toolbar.html -->
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            </item>
+        </argument>
+        <!--
+        Adds bookmark feature to grid It allows admin to set up different "profiles" of the grid which displays
+        different columns. You can add all columns from the table to the grid and let the user decide
+        which information are relevant to them.
+        -->
+        <bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <!-- namespace = listing name -->
+                        <item name="namespace" xsi:type="string">parcelninja_service_log_listing</item>
+                    </item>
+                </item>
+            </argument>
+        </bookmark>
+        <component name="columns_controls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <!-- Format [listing_name_from_layout].[listing_name_from_layout].[listing_columns_node_name] -->
+                        <item name="provider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.parcelninja_service_log_columns</item>
+                    </item>
+                    <!-- Refers to js file that displays grid -->
+                    <!-- Default: Magento/Ui/view/base/web/js/grid/controls/columns.js -->
+                    <!-- Uses template: Magento/Ui/view/base/web/templates/grid/controls/columns.html -->
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
+                    <!-- Defines where column controls need to be displayed. -->
+                    <!-- It refers to getRegion('dataGridActions') in file defined in container/argument/config/template -->
+                    <!-- Default: Magento/Ui/view/base/web/templates/grid/toolbar.html -->
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                </item>
+            </argument>
+        </component>
+        <!-- Adds full text search into the page -->
+        <!-- Fulltext will only work if specified table columns have indexes -->
+        <filterSearch name="fulltext">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="provider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing_data_source</item>
+                    <!-- Default: Magento/Ui/view/base/web/js/grid/filters/chips.js -->
+                    <item name="chipsProvider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.listing_top.listing_filters_chips</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.search</item>
+                    </item>
+                </item>
+            </argument>
+        </filterSearch>
+        <!-- Defines configuration for column filtering that is visible after clicking "Filters" button at the top right above the grid -->
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!-- Format [listing_name_from_layout].[listing_name_from_layout].[listing_columns_node_name] -->
+                    <item name="columnsProvider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.parcelninja_service_log_columns</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <!-- Format [listing_name_from_layout].[listing_name_from_layout].[container_node_name].[bookmark_node_name] -->
+                        <item name="provider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.filters</item>
+                    </item>
+                    <item name="childDefaults" xsi:type="array">
+                        <item name="provider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.listing_top.listing_filters</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.parcelninja_service_log_columns.${ $.index }:visible</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </filters>
+        <!-- Add mass action select to the grid -->
+        <!-- name argument should be unique -->
+        <massaction name="listing_massaction">
+            <!-- Defines basic data -->
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.parcelninja_service_log_columns.ids</item>
+                    <!-- primary table column -->
+                    <item name="indexField" xsi:type="string">id</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="parcelninja/service_log/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete items</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+        <!-- Defines pagination -->
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.parcelninja_service_log_columns.ids</item>
+                </item>
+            </argument>
+        </paging>
+    </container>
+    <!-- Defines table columns -->
+    <columns name="parcelninja_service_log_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.listing_top.bookmarks</item>
+                    <item name="namespace" xsi:type="string">current</item>
+                </item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">parcelninja_service_log_listing.parcelninja_service_log_listing.listing_top.bookmarks</item>
+                        <item name="root" xsi:type="string">columns.${ $.index }</item>
+                        <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <!-- Defines column with checkboxes for mass action to use -->
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!-- Filter type of the column. This is used in filters block. -->
+                    <!-- Available values: text, select, dateRange, textRange -->
+                    <item name="filter" xsi:type="string">textRange</item>
+
+                    <!-- Defines js files which is used to render column. -->
+                    <!-- Available options are in Magento/Ui/view/base/web/js/grid/columns/ -->
+                    <!-- Required if filter is select -->
+                    <!--<item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>-->
+
+                    <!-- Provides information of data type used for the column value -->
+                    <!-- For select use select as well, for dateRange use date -->
+                    <!--<item name="dataType" xsi:type="string">select</item>-->
+
+                    <!-- Defines html file used by knockout to render cell. By default ui/grid/cells/text is used -->
+                    <!-- Other options are located in Magento/Ui/view/base/web/templates/grid/cells/* -->
+                    <!-- ui/grid/cells/html allows to use html content in cell -->
+                    <!--<item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>-->
+
+                    <!-- Display the column. This can be used to defined columns for bookmarks but do not show them by default -->
+                    <!--<item name="visible" xsi:type="boolean">false</item>-->
+
+                    <!-- Sorting -->
+                    <item name="sorting" xsi:type="string">asc</item>
+
+                    <!-- Will be displayed in the column header and filter block -->
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="method_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Method Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="request_action">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Action</item>
+                </item>
+            </argument>
+        </column>
+        <column name="request_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Type</item>
+                </item>
+            </argument>
+        </column>
+        <column name="request_header_content_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Header Content Type</item>
+                </item>
+            </argument>
+        </column>
+        <column name="request_header_accept">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Header Accept</item>
+                </item>
+            </argument>
+        </column>
+        <column name="response_header_http_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Response Code</item>
+                </item>
+            </argument>
+        </column>
+        <column name="response_header_http_message">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Response Message</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="result_state">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">State</item>
+                </item>
+            </argument>
+        </column>
+        <column name="result_message">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Message</item>
+                </item>
+            </argument>
+        </column>
+        <column name="internal_error">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Internal Error</item>
+                </item>
+            </argument>
+        </column>
+        <column name="api_log_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">API Log ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="date" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Date</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

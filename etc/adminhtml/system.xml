@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fontera Parcelninja
+ *
+ * NOTICE OF LICENSE
+ *
+ * Private Proprietary Software (http://fontera.co.za/legal)
+ *
+ * @copyright  Copyright (c) 2016 Fontera (http://www.fontera.com)
+ * @license    http://fontera.co.za/legal  Private Proprietary Software
+ * @author     Shaughn Le Grange - Hatlen <support@fontera.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="fontera" translate="label" sortOrder="1000">
+            <label>Fontera</label>
+        </tab>
+        <section id="fontera_parcelninja" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Parceninja</label>
+            <tab>fontera</tab>
+            <resource>Fontera_Parcelninja::config_parcelninja</resource>
+            <group id="notice" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <frontend_model>Fontera\Parcelninja\Block\Adminhtml\System\Config\HeadNotice</frontend_model>
+                <help_url>http://www.fontera.com/</help_url>
+            </group>
+            <group id="general_settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="version" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Version</label>
+                    <frontend_model>Fontera\Parcelninja\Block\Adminhtml\System\Config\Version</frontend_model>
+                </field>
+                <field id="active" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="debug" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug Logging</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="api_settings" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>API Settings</label>
+                <field id="api_username" translate="label" type="obscure" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Username</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="api_password" translate="label" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="timeout" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Timeout</label>
+                    <comment>If blank, default is 60 seconds.</comment>
+                </field>
+            </group>
+            <group id="dropship_api_settings" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Dropship API Settings</label>
+                <field id="api_token" translate="label" type="obscure" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Token</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="timeout" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Timeout</label>
+                    <comment>If blank, default is 60 seconds.</comment>
+                </field>
+                <field id="order_to_dropship_active" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Successful Order To Dropship</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="carriers">
+            <group id="parcelninja" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Parcelninja</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled for Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="frontend_label" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Frontend label</label>
+                </field>
+                <field id="auto_create_shipping" translate="label" type="select" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Automatically Create Shipping When Invoice Is Paid</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="rate_calculation_method" translate="label" type="select" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Rate Calculation method</label>
+                    <source_model>Fontera\Parcelninja\Model\System\Config\Source\RateCalculationMethods</source_model>
+                </field>
+                <field id="show_cheapest_method" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show cheapest delivery method only</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="rate_calculation_method">1</field>
+                    </depends>
+                </field>
+                <field id="flatrate_method_title" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Flatrate method title</label>
+                    <depends>
+                        <field id="rate_calculation_method">2</field>
+                    </depends>
+                </field>
+                <field id="flatrate_amount" translate="label" type="text" sortOrder="52" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Flatrate amount</label>
+                    <depends>
+                        <field id="rate_calculation_method">2</field>
+                    </depends>
+                </field>
+                <field id="volumetric_method_title" translate="label" type="text" sortOrder="53" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Volumetric rates method title</label>
+                    <comment>If blank, the title will be set from the "Volumetric rates table".</comment>
+                    <depends>
+                        <field id="rate_calculation_method">3</field>
+                    </depends>
+                </field>
+                <field id="volumetric_rates" translate="label" sortOrder="54" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Volumetric rates table</label>
+                    <comment>Requires product attributes "length", "width" and "height".</comment>
+                    <frontend_model>Fontera\Parcelninja\Block\Adminhtml\Form\Field\VolumetricRatesTable</frontend_model>
+                    <backend_model>Fontera\Parcelninja\Model\System\Config\Backend\VolumetricRatesTable</backend_model>
+                    <depends>
+                        <field id="rate_calculation_method">3</field>
+                    </depends>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show method if not applicable</label>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Displayed error message</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

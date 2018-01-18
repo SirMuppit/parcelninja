@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fontera Parcelninja
+ *
+ * NOTICE OF LICENSE
+ *
+ * Private Proprietary Software (http://fontera.co.za/legal)
+ *
+ * @copyright  Copyright (c) 2016 Fontera (http://www.fontera.com)
+ * @license    http://fontera.co.za/legal  Private Proprietary Software
+ * @author     Shaughn Le Grange - Hatlen <support@fontera.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<!-- SERVICE LOG GRID START -->
+    <!-- Filtering and searching -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Register data source -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <!-- Must match dataSource node in listing -->
+                <!-- Must resolve to GridCollection which extends the regular collection class and implements Magento\Framework\Api\Search\SearchResultInterface -->
+                <item name="parcelninja_service_log_listing_data_source" xsi:type="string">Fontera\Parcelninja\Model\ResourceModel\Service\Log\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Configure grid collection -->
+    <virtualType name="Fontera\Parcelninja\Model\ResourceModel\Service\Log\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">fontera_parcelninja_service_log</argument>
+            <argument name="resourceModel" xsi:type="string">Fontera\Parcelninja\Model\ResourceModel\Service\Log</argument>
+        </arguments>
+    </virtualType>
+<!-- SERVICE LOG GRID END -->
+</config>

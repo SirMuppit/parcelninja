@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fontera Parcelninja
+ *
+ * NOTICE OF LICENSE
+ *
+ * Private Proprietary Software (http://fontera.co.za/legal)
+ *
+ * @copyright  Copyright (c) 2016 Fontera (http://www.fontera.com)
+ * @license    http://fontera.co.za/legal  Private Proprietary Software
+ * @author     Shaughn Le Grange - Hatlen <support@fontera.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <fontera_parcelninja>
+            <general_settings>
+                <active>1</active>
+                <debug>1</debug>
+            </general_settings>
+            <api_settings>
+                <!-- Will ensure value is decrypted upon retrieval. -->
+                <api_password backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <!-- Will ensure value is decrypted upon retrieval. -->
+                <api_username backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <timeout>60</timeout>
+            </api_settings>
+        </fontera_parcelninja>
+        <carriers>
+            <parcelninja>
+                <active>1</active>
+                <title>Parcelninja</title>
+                <frontend_label>Parcelninja</frontend_label>
+                <model>Fontera\Parcelninja\Model\Carrier</model>
+                <use_flatrate>0</use_flatrate>
+                <auto_create_shipping>0</auto_create_shipping>
+                <flatrate_amount>50</flatrate_amount>
+                <flatrate_method_title>Flatrate</flatrate_method_title>
+                <sallowspecific>0</sallowspecific>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <active_rma>0</active_rma>
+                <is_online>1</is_online>
+            </parcelninja>
+        </carriers>
+    </default>
+</config>
